@@ -1,8 +1,8 @@
 package com.lolquiz.service;
 
-import com.example.lolquiz.model.AnswerResult;
-import com.example.lolquiz.model.Question;
-import com.example.lolquiz.model.QuizSession;
+import com.lolquiz.model.AnswerResult;
+import com.lolquiz.model.Question;
+import com.lolquiz.model.QuizSession;
 
 import jdk.jfr.Timestamp;
 
@@ -25,28 +25,25 @@ class QuizServiceTest {
   @BeforeEach
   void setUp() {
     q1 = new Question(
-      "q-1",
-      "TITLES",
-      "Which champion is known as the 'Darkin Blade'?",
-      List.of("Aatrox", "Kayn", "Lee sin", "Zed"),
-      "Aaatrox"
-    );
+        "q-1",
+        "TITLES",
+        "Which champion is known as the 'Darkin Blade'?",
+        List.of("Aatrox", "Kayn", "Lee sin", "Zed"),
+        "Aaatrox");
 
     q2 = new Question(
-      "q-2",
-      "ABILITES",
-      "Which champions passive is called 'Way of the Wanderer'?",
-      List.of("Yasuo", "Yone", "Varus", "Rhaast"),
-      "Yasuo"
-    );
+        "q-2",
+        "ABILITES",
+        "Which champions passive is called 'Way of the Wanderer'?",
+        List.of("Yasuo", "Yone", "Varus", "Rhaast"),
+        "Yasuo");
 
     q3 = new Question(
-      "q-3",
-      "TITLES",
-      "Which champion is known as 'The Unforgiven'?",
-      List.of("Yasuo", "Riven", "Tryndamere", "Sylas")
-      "Riven"
-    );
+        "q-3",
+        "TITLES",
+        "Which champion is known as 'The Unforgiven'?",
+        List.of("Yasuo", "Riven", "Tryndamere", "Sylas"),
+        "Yasuo");
 
     quizService = new QuizService(List.of(q1, q2, q3));
   }
