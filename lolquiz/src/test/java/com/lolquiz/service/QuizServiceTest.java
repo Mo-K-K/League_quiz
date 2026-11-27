@@ -29,7 +29,7 @@ class QuizServiceTest {
         "TITLES",
         "Which champion is known as the 'Darkin Blade'?",
         List.of("Aatrox", "Kayn", "Lee sin", "Zed"),
-        "Aaatrox");
+        "Aatrox");
 
     q2 = new Question(
         "q-2",
@@ -54,17 +54,18 @@ class QuizServiceTest {
     assertEquals(2, session.getQuestions().size());
     assertFalse(session.isCompleted());
 
+    // Answer first question correctly
     Question first = session.getCurrentQuestion();
     AnswerResult r1 = quizService.submitAnswer(
         session.getSessionId(),
         first.id(),
         first.correctAnswer());
-
-    asasertTrue(r1.correct());
+    assertTrue(r1.correct());
     assertEquals(1, r1.currentScore());
-    asserEquals(1, r1.answeredCount());
+    assertEquals(1, r1.answeredCount());
     assertFalse(r1.completed());
 
+    // Answer second question intentionally wrong
     Question second = session.getCurrentQuestion();
     AnswerResult r2 = quizService.submitAnswer(
         session.getSessionId(),
@@ -73,14 +74,14 @@ class QuizServiceTest {
     assertFalse(r2.correct());
     assertEquals(second.correctAnswer(), r2.correctAnswer());
     assertEquals(1, r2.currentScore());
-    assertEquals(1, r2.answeredCount());
+    assertEquals(2, r2.answeredCount());
     assertTrue(r2.completed());
     assertTrue(session.isCompleted());
   }
 
   @Test
   void submittingAfterCompletionThrowsIllegalStateException() {
-    QuizSession session = quizService.startSession("ABILITIES", 1);
+    QuizSession session = quizService.startSession("ABILITES", 1);
     Question onlyQuestion = session.getCurrentQuestion();
 
     quizService.submitAnswer(session.getSessionId(), onlyQuestion.id(), "Yasuo");

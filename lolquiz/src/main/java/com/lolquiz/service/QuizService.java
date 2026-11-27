@@ -13,9 +13,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class QuizService {
 
   private final List<Question> questionBank;
-  private final Map<String, QuizSession> activeSessions - new ConcurrentHashMap<>();
+  private final Map<String, QuizSession> activeSessions = new ConcurrentHashMap<>();
 
-  public QuizService {
+  public QuizService(List<Question> questionBank) {
     if (questionBank == null || questionBank.isEmpty()) {
       throw new IllegalArgumentException("Question bank must not be empty");
     }
@@ -31,9 +31,9 @@ public class QuizService {
     List<Question> filtered = new ArrayList<>();
     for (Question q : questionBank) {
       boolean matchesCategory = category == null
-        || category.isBlank()
-        || category.equalsIgnoreCase("ALL")
-        || q.category().equalsIgnoreCase(category);
+          || category.isBlank()
+          || category.equalsIgnoreCase("ALL")
+          || q.category().equalsIgnoreCase(category);
       if (matchesCategory) {
         filtered.add(q);
       }
@@ -52,8 +52,16 @@ public class QuizService {
     return session;
   }
 
+  public QuizSession getSession(String sessionId) {
+    QuizSession session = activeSessions.get(sessionId);
+    if (session == null) {
+      throw new IllegalArgumentException("Unkown session ID: " + sessionId);
+    }
+    return session;
+  }
+
   public AnswerResult submitAnswer(String sessionId, String questionId, String selectedAnswer) {
-    QuizSession session = getSessionId(sessionId);
+    QuizSession session = getSession(sessionId);
     return session.submitAnswer(questionId, selectedAnswer);
   }
 }
